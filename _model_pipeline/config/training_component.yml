@@ -1,0 +1,33 @@
+name: automl_classification_job
+display_name: AutoML Classification Job
+description: submit an automl job to train classification model
+version: 1
+type: command
+
+inputs:
+  step_connection:
+    type: uri_folder
+  mltable_name:
+    type: string
+  experiment_name:
+    type: string
+  compute_name:
+    type: string
+  primary_metric:
+    type: string
+  max_trials:
+    type: string
+outputs:
+  best_model:
+    type: uri_folder
+code: ../src
+command: >-
+  python -m model_train.train_model
+  --step_connection ${{inputs.step_connection}}
+  --mltable_name ${{inputs.mltable_name}}
+  --experiment_name ${{inputs.experiment_name}}
+  --compute_name ${{inputs.compute_name}}
+  --primary_metric ${{inputs.primary_metric}}
+  --max_trials ${{inputs.max_trials}}
+  --best_model ${{outputs.best_model}}
+environment: azureml:ml-pipeline-env@latest

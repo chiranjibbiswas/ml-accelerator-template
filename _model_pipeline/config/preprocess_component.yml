@@ -1,0 +1,32 @@
+name: preprocessing_component
+display_name: Data Preprocessing component
+description: Preprocess the training and validation data into required format.
+version: 1
+type: command
+
+inputs:
+  mltable_name:
+    type: string
+  training_start_date:
+    type: string
+  training_end_date:
+    type: string
+  validation_start_date:
+    type: string
+  validation_end_date:
+    type: string
+outputs:
+  step_connection:
+    type: uri_folder
+
+code: ../src
+command: >-
+  python -m model_train.data_preprocess
+  --mltable_name ${{inputs.mltable_name}}
+  --training_start_date ${{inputs.training_start_date}}
+  --training_end_date ${{inputs.training_end_date}}
+  --validation_start_date ${{inputs.validation_start_date}}
+  --validation_end_date ${{inputs.validation_end_date}}
+  --step_connection ${{outputs.step_connection}}
+
+environment: azureml:ml-pipeline-env@latest

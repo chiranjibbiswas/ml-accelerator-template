@@ -1,0 +1,34 @@
+name: model_validator
+display_name: Model validation component
+description: Creates Validation report for the new trained models
+version: 1
+type: command
+
+inputs:
+  
+  best_child_run_id:
+    type: string
+  validation_data_asset:
+    type: string
+    optional: true
+    default: ""
+  validation_start_date:
+    type: string
+    optional: true
+    default: ""
+  validation_end_date:
+    type: string
+    optional: true
+    default: ""
+  compute_name:
+    type: string
+
+code: ../src
+command: >-
+  python -m model_validation.validation
+  --best_child_run_id ${{inputs.best_child_run_id}}
+  $[[--validation_data_asset ${{inputs.validation_data_asset}}]]
+  $[[--validation_start_date ${{inputs.validation_start_date}}]]
+  $[[--validation_end_date ${{inputs.validation_end_date}}]]
+  --compute_name ${{inputs.compute_name}}
+environment: azureml:ml-pipeline-env@latest
