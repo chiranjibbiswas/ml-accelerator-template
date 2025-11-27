@@ -22,11 +22,11 @@ outputs:
 code: ../src
 command: >-
   python -m model_train.data_preprocess
-  --mltable_name {% raw %}${{inputs.mltable_name}}
-  --training_start_date {% raw %}${{inputs.training_start_date}}
-  --training_end_date {% raw %}${{inputs.training_end_date}}
-  --validation_start_date {% raw %}${{inputs.validation_start_date}}
-  --validation_end_date {% raw %}${{inputs.validation_end_date}}
-  --step_connection {% raw %}${{outputs.step_connection}}
+  --mltable_name {% raw %}${{inputs.mltable_name}}{% endraw %}
+  --training_start_date {% raw %}${{inputs.training_start_date}}{% endraw %}
+  --training_end_date {% raw %}${{inputs.training_end_date}}{% endraw %}
+  --validation_start_date {% raw %}${{inputs.validation_start_date}}{% endraw %}
+  --validation_end_date {% raw %}${{inputs.validation_end_date}}{% endraw %}
+  --step_connection {% raw %}${{outputs.step_connection}}{% endraw %}
 
 environment: azureml:ml-pipeline-env@latest

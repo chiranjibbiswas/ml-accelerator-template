@@ -26,9 +26,9 @@ inputs:
 code: ../src
 command: >-
   python -m model_validation.validation
-  --best_child_run_id {% raw %}${{inputs.best_child_run_id}}
+  --best_child_run_id {% raw %}${{inputs.best_child_run_id}}{% endraw %}
   $[[--validation_data_asset {% raw %}${{inputs.validation_data_asset}}{% endraw %}]]
   $[[--validation_start_date {% raw %}${{inputs.validation_start_date}}{% endraw %}]]
   $[[--validation_end_date {% raw %}${{inputs.validation_end_date}}{% endraw %}]]
-  --compute_name {% raw %}${{inputs.compute_name}}
+  --compute_name {% raw %}${{inputs.compute_name}}{% endraw %}
 environment: azureml:ml-pipeline-env@latest
