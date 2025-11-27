@@ -2,5 +2,6 @@
   "project_name": "model_pipeline",
   "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_') }}",
   "author": "Chiranjib Biswas",
-  "model_name": "xyz"
+  "model_name": "xyz",
+  "mtp_name": "{{ cookiecutter.model_name.lower().replace(' ', '_') }}"
 }

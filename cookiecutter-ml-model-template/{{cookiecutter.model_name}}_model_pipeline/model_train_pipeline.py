@@ -30,7 +30,7 @@ if not logger.handlers:
     logger.addHandler(handler)
 
 
-@dsl.pipeline(name="btd_model_training_pipeline")
+@dsl.pipeline(name="{{cookiecutter.mtp_name}}_model_training_pipeline")
 def build_pipeline(training_start_date, training_end_date, validation_start_date, validation_end_date):
     try:
         config_var = {
