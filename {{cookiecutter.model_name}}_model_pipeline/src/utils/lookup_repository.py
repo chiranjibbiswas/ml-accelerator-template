@@ -14,7 +14,7 @@ from azure.identity import ManagedIdentityCredential
 # ---------------------------
 def get_engine(synapse_server, synapse_db, synapse_user, synapse_password):
     connection_string = (
-        f"Driver={{ODBC Driver 18 for SQL Server}};"
+        f"Driver={% raw %}{{ODBC Driver 18 for SQL Server}}{% endraw %};"
         f"Server=tcp:{synapse_server},1433;"
         f"Database={synapse_db};"
         f"Uid={synapse_user};"
