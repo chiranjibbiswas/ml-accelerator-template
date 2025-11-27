@@ -23,11 +23,11 @@ outputs:
 code: ../src
 command: >-
   python -m model_train.train_model
-  --step_connection ${{inputs.step_connection}}
-  --mltable_name ${{inputs.mltable_name}}
-  --experiment_name ${{inputs.experiment_name}}
-  --compute_name ${{inputs.compute_name}}
-  --primary_metric ${{inputs.primary_metric}}
-  --max_trials ${{inputs.max_trials}}
-  --best_model ${{outputs.best_model}}
+  --step_connection {% raw %}${{inputs.step_connection}}
+  --mltable_name {% raw %}${{inputs.mltable_name}}
+  --experiment_name {% raw %}${{inputs.experiment_name}}
+  --compute_name {% raw %}${{inputs.compute_name}}
+  --primary_metric {% raw %}${{inputs.primary_metric}}
+  --max_trials {% raw %}${{inputs.max_trials}}
+  --best_model {% raw %}${{outputs.best_model}}
 environment: azureml:ml-pipeline-env@latest
