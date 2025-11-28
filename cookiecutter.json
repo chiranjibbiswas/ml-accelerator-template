@@ -1,7 +1,35 @@
 {
+  "subscription_id": "df249290-3707-482f-aa71-edbba27464a5",
+  "resource_group": "rg-machinelearning-prd-use-01",
+  "workspace_name": "ws-renuity-ml-prd-use-01",
+  "key_vault_name": "kvmachinelearningprd01",
+  "raw_storage_account_name": "renuitydatacore",
+  "ml_storage_account_name": "wsrenuitymlprduse01",
+  "raw_container_name": "renuity3rdpartydata",
+  "ml_container_name": "azureml-blobstore-21e3caf3-4723-4651-a986-8079e3808310",
+  "datastore_name": "workspaceblobstore",
+  "compute_cluster": "compute-ml-prd-use-01",
+  "create_compute_env": "false",
+  "app_name": "ca-machinelearningapi-prd-use-01",
+  "app_container_name": "ca-machinelearningapi-prd-use-01",
+
   "project_name": "model_pipeline",
   "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_') }}",
   "author": "Chiranjib Biswas",
-  "model_name": "xyz",
-  "mtp_name": "{{ cookiecutter.model_name.lower().replace(' ', '_') }}"
+  "model_name": "btd",
+  "mtp_name": "{{ cookiecutter.model_name.lower().replace(' ', '_') }}",
+  "MODEL_TYPE": "{{cookiecutter.model_name}}__model",
+
+  "mltable_name": "{{cookiecutter.model_name}}}_model_training_dataset",
+  "env_name": "ml-pipeline-env",
+  "training_start_date": "2025-01-01",
+  "training_end_date":"2025-05-31",
+  "validation_start_date":"2025-06-01",
+  "validation_end_date":"2025-07-31",
+  "experiment_name":"btd_model_pipelines",
+  "primary_metric": "AUC_weighted",
+  "max_trials": "200",
+
+  "best_child_run_id": "gifted_deer_z207ns0xn0_74",
+  "validation_data_asset": "{{model_name}}_model_validation_dataset:1"
 }

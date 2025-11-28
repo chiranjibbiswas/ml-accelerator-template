@@ -43,7 +43,7 @@ def build_pipeline(training_start_date, training_end_date, validation_start_date
             "RAW_CONTAINER":os.getenv('raw_container_name'),
             "ML_CONTAINER":os.getenv('ml_container_name'),
             "DATASTORE_NAME":os.getenv('datastore_name'),
-            "MODEL_TYPE":"btd_model"
+            "MODEL_TYPE":"{{cookiecutter.MODEL_TYPE}}"
         }
         
         # Load YAML components and register
@@ -51,7 +51,7 @@ def build_pipeline(training_start_date, training_end_date, validation_start_date
         train_component = load_component(source="config/training_component.yml")
         
         prep_step = prep_component(
-            mltable_name= 'btd_model_training_dataset',
+            mltable_name= "{{cookiecutter.mltable_name}}",
             training_start_date = training_start_date,
             training_end_date = training_end_date,
             validation_start_date = validation_start_date,
@@ -62,11 +62,11 @@ def build_pipeline(training_start_date, training_end_date, validation_start_date
         
         train_step = train_component(
             step_connection = prep_step.outputs.step_connection,
-            mltable_name='btd_model_training_dataset',
-            experiment_name = 'btd_model_pipelines',
+            mltable_name = "{{cookiecutter.mltable_name}}",
+            experiment_name = "{{cookiecutter.experiment_name}}",
             compute_name = os.getenv('compute_cluster'),
-            primary_metric= 'AUC_weighted',
-            max_trials='200'            
+            primary_metric = "{{cookiecutter.primary_metric}}",
+            max_trials = "{{cookiecutter.max_trials}}"
         )
         # Add environment variables dynamically
         train_step.environment_variables = config_var
@@ -78,22 +78,22 @@ def build_pipeline(training_start_date, training_end_date, validation_start_date
 
 def run_pipeline():
 
-    env_name = "ml-pipeline-env"
+    env_name = "{{cookiecutter.env_name}}"
     if os.getenv('create_compute_env').lower()=='true':
         create_env(env_name)
         logger.info(f'Creating pipeline component runtime environment: {env_name}')
 
     # Run pipeline
-    pipeline_job = build_pipeline(training_start_date = '2025-01-01',
-            training_end_date = '2025-05-31',
-            validation_start_date = '2025-06-01',
-            validation_end_date = '2025-07-31')
+    pipeline_job = build_pipeline(training_start_date = "{{cookiecutter.training_start_date}}",
+            training_end_date = "{{cookiecutter.training_end_date}}",
+            validation_start_date = "{{cookiecutter.validation_start_date}}",
+            validation_end_date = "{{cookiecutter.validation_end_date}}")
     # set pipeline level compute
     pipeline_job.settings.default_compute= os.getenv('compute_cluster')
     # set pipeline level datastore
     pipeline_job.settings.default_datastore=os.getenv('datastore_name')
     pipeline_job.settings.force_rerun=False
-    job_run = ml_client.jobs.create_or_update(pipeline_job, experiment_name="btd_model_pipelines")
+    job_run = ml_client.jobs.create_or_update(pipeline_job, experiment_name="{{cookiecutter.experiment_name}}")
     logger.info(job_run.name)
 
     

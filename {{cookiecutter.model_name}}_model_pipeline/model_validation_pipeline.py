@@ -30,7 +30,7 @@ if not logger.handlers:
     logger.addHandler(handler)
 
 
-@dsl.pipeline(name="btd_model_validation_pipeline")
+@dsl.pipeline(name="{{cookiecutter.mtp_name}}_model_validation_pipeline")
 def build_pipeline(best_child_run_id, 
                    validation_data_asset=None, 
                    validation_start_date=None, 
@@ -68,15 +68,15 @@ def build_pipeline(best_child_run_id,
 
 def run_pipeline():
     # Run pipeline
-    pipeline_job = build_pipeline(best_child_run_id = "gifted_deer_z207ns0xn0_74",
-            validation_data_asset = "btd_model_validation_dataset:1",
+    pipeline_job = build_pipeline(best_child_run_id = "{{cookiecutter.best_child_run_id}}",
+            validation_data_asset = "{{cookiecutter.validation_data_asset}}",
             )
     # set pipeline level compute
     pipeline_job.settings.default_compute=os.getenv('compute_cluster')
     # set pipeline level datastore
     pipeline_job.settings.default_datastore=os.getenv('datastore_name')
     pipeline_job.settings.force_rerun=True
-    job_run = ml_client.jobs.create_or_update(pipeline_job, experiment_name="btd_model_pipelines")
+    job_run = ml_client.jobs.create_or_update(pipeline_job, experiment_name="{{cookiecutter.experiment_name}}")
     logger.info(f"Created piepline job:{job_run.name}")
 
 # run script
